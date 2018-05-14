@@ -1,0 +1,20 @@
+#!/bin/bash
+
+STANDUP_FILE="~/standup.txt"
+BACKUP_FILE="~/standup-prev.txt"
+VIM_COMMANDS="'+setf slack' '+set spell' '+set wrap'"
+
+standup_line_count="$( cat $STANDUP_FILE | wc -l )"
+
+if [[ $standup_line_count -gt 0 ]]; then
+  exec vim -o \
+    "$STANDUP_FILE" \
+    "$BACKUP_FILE" \
+    "$VIM_COMMANDS"
+else
+  exec vim \
+    "$STANDUP_FILE" \
+    "+r $BACKUP_FILE" \
+    "+0d" \
+    "$VIM_COMMANDS"
+fi
