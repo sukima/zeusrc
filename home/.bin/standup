@@ -1,8 +1,7 @@
 #!/bin/bash
 
-STANDUP_FILE="~/standup.txt"
-BACKUP_FILE="~/standup-prev.txt"
-VIM_COMMANDS="'+setf slack' '+set spell' '+set wrap'"
+STANDUP_FILE="$HOME/standup.txt"
+BACKUP_FILE="$HOME/standup-prev.txt"
 
 standup_line_count="$( cat $STANDUP_FILE | wc -l )"
 
@@ -10,11 +9,12 @@ if [[ $standup_line_count -gt 0 ]]; then
   exec vim -o \
     "$STANDUP_FILE" \
     "$BACKUP_FILE" \
-    "$VIM_COMMANDS"
+    "+bufdo set filetype=slack wrap spell" \
+    "+b1"
 else
   exec vim \
     "$STANDUP_FILE" \
-    "+r $BACKUP_FILE" \
+    "+1r $BACKUP_FILE" \
     "+0d" \
-    "$VIM_COMMANDS"
+    "+set filetype=slack wrap spell"
 fi
