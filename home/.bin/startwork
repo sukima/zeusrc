@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# terminator is weird and doesn't play nice with layouts
+# i3-msg "workspace 1; append_layout $HOME/.i3/layouts/ws1-terminal.json"
+i3-msg "workspace 1; exec /usr/bin/terminator" > /dev/null 2>&1 || exit
+i3-msg "workspace 2; append_layout $HOME/.i3/layouts/ws2-slack.json" > /dev/null 2>&1 || exit
+i3-msg "workspace 3; append_layout $HOME/.i3/layouts/ws3-firefox.json" > /dev/null 2>&1 || exit
+i3-msg "workspace 2; exec /usr/bin/slack" > /dev/null 2>&1 || exit
+i3-msg "workspace 3; exec /usr/bin/firefox" > /dev/null 2>&1 || exit
